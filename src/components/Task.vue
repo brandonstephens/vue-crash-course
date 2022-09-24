@@ -1,9 +1,13 @@
 <template>
-  <div :class="['task', task.reminder ? 'task-hasReminder' : '']">
+  <div class="task">
     <h3 class="font-medium">{{ task.text }}</h3>
 
     <div class="flex space-x-4">
-      <Button @click="scheduleTask(task.id)" text="⏱" />
+      <Button
+        :className="[task.reminder ? '!bg-amber-100' : '']"
+        @click="scheduleTask(task.id)"
+        text="⏱"
+      />
       <Button @click="deleteTask(task.id)" text="🗑" />
     </div>
   </div>
@@ -39,9 +43,5 @@ export default {
   @apply shadow-sm;
   @apply p-4;
   @apply rounded;
-}
-
-.task-hasReminder {
-  @apply border-l-8 border-l-amber-300;
 }
 </style>
