@@ -7,6 +7,8 @@
       <Button text="+ Add Task" />
     </header>
 
+    <AddTask @add-task="addTask" />
+
     <TaskList
       title="My tasks"
       :tasks="tasks"
@@ -20,6 +22,7 @@
 import Header from "./components/Header.vue";
 import Button from "./components/Button.vue";
 import TaskList from "./components/TaskList.vue";
+import AddTask from "./components/AddTask.vue";
 
 export default {
   name: "App",
@@ -27,6 +30,7 @@ export default {
     Header,
     Button,
     TaskList,
+    AddTask,
   },
   data() {
     return {
@@ -34,15 +38,18 @@ export default {
     };
   },
   methods: {
-    deleteTask(id) {
-      if (confirm("Are you sure you want to delete this task?")) {
-        this.tasks = this.tasks.filter((task) => task.id !== id);
-      }
+    addTask(task) {
+      this.tasks = [...this.tasks, task];
     },
     scheduleTask(id) {
       this.tasks = this.tasks.map((task) =>
         task.id === id ? { ...task, reminder: !task.reminder } : task
       );
+    },
+    deleteTask(id) {
+      if (confirm("Are you sure you want to delete this task?")) {
+        this.tasks = this.tasks.filter((task) => task.id !== id);
+      }
     },
   },
   created() {

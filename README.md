@@ -14,3 +14,5 @@ Project from this tutorial from Brad Traversy:
 - [VSCode](https://code.visualstudio.com/)
 - [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur)
 - [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin)
+- [Tailwind CSS](https://tailwindcss.com)
+- [Tailwind Forms](https://github.com/tailwindlabs/tailwindcss-forms)
