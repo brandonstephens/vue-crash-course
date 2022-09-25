@@ -40,15 +40,9 @@ export default {
       }
     },
     scheduleTask(id) {
-      this.tasks = [
-        ...this.tasks.map((task) => {
-          if (task.id == id) {
-            return { ...task, reminder: !task.reminder };
-          } else {
-            return task;
-          }
-        }),
-      ];
+      this.tasks = this.tasks.map((task) =>
+        task.id === id ? { ...task, reminder: !task.reminder } : task
+      );
     },
   },
   created() {
