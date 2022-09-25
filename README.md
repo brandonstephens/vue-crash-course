@@ -7,7 +7,8 @@ Project from this tutorial from Brad Traversy:
 
 1. `nvm use`
 2. `npm install`
-3. `npm run dev`
+3. `npm run backend` // start json-server for fake api/db
+4. `npm run dev`
 
 ## 📚 Reference
 

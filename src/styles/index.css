@@ -11,3 +11,13 @@ body {
   @apply h-full;
   @apply bg-stone-50;
 }
+
+a {
+  @apply text-amber-500;
+  @apply underline;
+}
+
+a:hover {
+  @apply text-amber-900;
+  @apply no-underline;
+}
