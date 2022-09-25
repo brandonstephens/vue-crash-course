@@ -4,10 +4,15 @@
       class="flex justify-between items-baseline py-9 border-b border-stone-200 mb-8"
     >
       <Header title="Task Tracker" />
-      <Button text="+ Add Task" />
+
+      <Button
+        :text="showAddTask ? '✕ Close' : ' + Add Task'"
+        @click="toggleAddTask()"
+        :className="[showAddTask ? '!bg-stone-300' : '']"
+      />
     </header>
 
-    <AddTask @add-task="addTask" />
+    <AddTask @add-task="addTask" v-show="showAddTask" />
 
     <TaskList
       title="My tasks"
@@ -35,6 +40,7 @@ export default {
   data() {
     return {
       tasks: [],
+      showAddTask: false,
     };
   },
   methods: {
@@ -50,6 +56,9 @@ export default {
       if (confirm("Are you sure you want to delete this task?")) {
         this.tasks = this.tasks.filter((task) => task.id !== id);
       }
+    },
+    toggleAddTask() {
+      this.showAddTask = !this.showAddTask;
     },
   },
   created() {

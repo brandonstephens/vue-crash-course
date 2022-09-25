@@ -1,5 +1,5 @@
 <template>
-  <form class="pb-8" @submit="submitForm">
+  <form class="p-8 bg-stone-200 rounded-md shadow-inner" @submit="submitForm">
     <div class="form-control">
       <label for="text">Task</label>
       <input

@@ -42,6 +42,6 @@ export default {
   @apply border border-stone-100;
   @apply shadow-sm;
   @apply p-4;
-  @apply rounded;
+  @apply rounded-md;
 }
 </style>
