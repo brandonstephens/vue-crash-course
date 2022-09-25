@@ -16,3 +16,4 @@ Project from this tutorial from Brad Traversy:
 - [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin)
 - [Tailwind CSS](https://tailwindcss.com)
 - [Tailwind Forms](https://github.com/tailwindlabs/tailwindcss-forms)
+- [json-server](https://www.npmjs.com/package/json-server)

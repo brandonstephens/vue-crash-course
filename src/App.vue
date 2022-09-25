@@ -8,7 +8,7 @@
       <Button
         :text="showAddTask ? '✕ Close' : ' + Add Task'"
         @click="toggleAddTask()"
-        :className="[showAddTask ? '!bg-stone-300' : '']"
+        :className="showAddTask ? '!bg-stone-300' : ''"
       />
     </header>
 
@@ -44,44 +44,78 @@ export default {
     };
   },
   methods: {
-    addTask(task) {
-      this.tasks = [...this.tasks, task];
+    async addTask(task) {
+      const response = await fetch("http://127.0.0.1:5000/tasks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(task),
+      }).catch((error) => console.error(error));
+
+      const newTask = await response.json();
+
+      this.tasks = [...this.tasks, newTask];
     },
-    scheduleTask(id) {
+    async scheduleTask(id) {
+      const task = await this.fetchTask(id).catch((error) =>
+        console.error(error)
+      );
+      const updatedTask = { ...task, reminder: !task.reminder };
+
+      const response = await fetch(`http://127.0.0.1:5000/tasks/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(updatedTask),
+      });
+
+      const data = await response.json();
+
       this.tasks = this.tasks.map((task) =>
-        task.id === id ? { ...task, reminder: !task.reminder } : task
+        task.id === id ? { ...task, reminder: data.reminder } : task
       );
     },
-    deleteTask(id) {
+    async deleteTask(id) {
       if (confirm("Are you sure you want to delete this task?")) {
-        this.tasks = this.tasks.filter((task) => task.id !== id);
+        const response = await fetch(`http://127.0.0.1:5000/tasks/${id}`, {
+          method: "DELETE",
+        }).catch((error) => console.error(error));
+
+        response.status === 200
+          ? (this.tasks = this.tasks.filter((task) => task.id !== id))
+          : alert("Sorry something went wrong during the delete");
       }
     },
     toggleAddTask() {
       this.showAddTask = !this.showAddTask;
     },
+    async fetchTasks() {
+      const response = await fetch(`http://127.0.0.1:5000/tasks`).catch(
+        (error) => {
+          console.error(error);
+        }
+      );
+      const tasks = await response.json().catch((error) => {
+        console.error(error);
+      });
+      return tasks;
+    },
+    async fetchTask(id) {
+      const response = await fetch(`http://127.0.0.1:5000/tasks/${id}`).catch(
+        (error) => {
+          console.error(error);
+        }
+      );
+      const task = await response.json().catch((error) => {
+        console.error(error);
+      });
+      return task;
+    },
   },
-  created() {
-    this.tasks = [
-      {
-        id: 1,
-        text: "Doctors Appointment",
-        day: "March 1st at 2:30pm",
-        reminder: true,
-      },
-      {
-        id: 2,
-        text: "Meeting at School",
-        day: "March 3rd at 1:30pm",
-        reminder: true,
-      },
-      {
-        id: 3,
-        text: "Food Shopping",
-        day: "March 3rd at 11:00am",
-        reminder: false,
-      },
-    ];
+  async created() {
+    this.tasks = await this.fetchTasks().catch((error) => console.error(error));
   },
 };
 </script>
